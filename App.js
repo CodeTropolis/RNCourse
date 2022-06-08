@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView } from 'react-native';
 import React, { useState } from 'react';
 
 export default function App() {
@@ -18,27 +18,29 @@ export default function App() {
     setCourseGoals(currentCourseGoals => [...currentCourseGoals, enteredGoalText]);
   }
 
-
   return (
     <View style={styles.appContainer}>
       <View style={styles.inputContainer}>
         <TextInput style={styles.textInput} placeholder="Your goal" onChangeText={goalInputHandler} />
         <Button title="Add goal" onPress={addGoalHandler} />
       </View>
+      {/* Scrollable area determined by parent that holds the scroll view. */}
       <View style={styles.goalsContainer}>
-        {courseGoals.map((goal, index) => {
-          return (
-            <View key={index} style={styles.goal}>
-              <Text>{goal}</Text>
-            </View>
-          );
-        })
-        }
+        <ScrollView>
+          {courseGoals.map((goal, index) => (
+              <View key={index} style={styles.goalItem}>
+                {/* Rounded (borderRadius) corners on Text element won't work on iOS */}
+                  <Text style={styles.goalText}>{goal}</Text>
+              </View>
+            )
+          )
+          }
+        </ScrollView>
       </View>
     </View>
   );
 }
-
+// Styles do not cascade or inherit in React Native.
 const styles = StyleSheet.create({
   appContainer: {
     flex: 1,
@@ -64,7 +66,14 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   goalsContainer: {
-    flex: 4,
+    flex: 5,
+  },
+  goalText: {color:'white'},
+  goalItem: {
+    margin: 8,
+    borderRadius: 8,
+    padding: 8,
+    backgroundColor: 'purple',
   }
 
 });
