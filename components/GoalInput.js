@@ -16,7 +16,7 @@ export function GoalInput(props) {
         <View style={styles.inputContainer}>
             <TextInput style={styles.textInput} placeholder="Your goal" onChangeText={goalInputHandler} value={enteredGoalText}/>
             <Button title="Add goal" onPress={addGoalHandler} />
-      </View>
+        </View>
     );
 }
 
