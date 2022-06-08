@@ -37,7 +37,7 @@ export default function App() {
             </View>
           );
         }}
-        keyExtractor={(item) => item.id} />
+        keyExtractor={item => item.id} />
       </View>
     </View>
   );
