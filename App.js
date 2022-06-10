@@ -12,11 +12,16 @@ export default function App() {
     setModalIsVisible(true);
   }
 
+  function endAddGoalHandler() {
+    setModalIsVisible(false);
+  }
+
   function addGoalHandler(enteredGoalText){
     // setCourseGoals([...courseGoals, enteredGoalText]); // This works but below is best practice when new state depends on old state.
     // React populates currentCourseGoals.
     // Wrap enteredGoalText in an object with a prop named 'key' (or use keyExtractor if using diff prop name other than 'key') to satisfy FlatList keys.
     setCourseGoals(currentCourseGoals => [...currentCourseGoals, {text: enteredGoalText, id: Math.random().toString()}]);
+    endAddGoalHandler();
   }
 
   function deleteGoalHandler(id){
@@ -26,7 +31,8 @@ export default function App() {
   return (
     <View style={styles.appContainer}>
       <Button title="Add New Goal" color="#5e0acc" onPress={startAddGoalHandler} />
-      <GoalInput visible={modalIsVisible} onAddGoal={addGoalHandler} />
+      {/* visible, onAddGoal, and onCancel are all accessible via props.<whatever> */}
+      <GoalInput visible={modalIsVisible} onAddGoal={addGoalHandler} onCancel={endAddGoalHandler}/>
       {/* Scrollable area determined by parent that holds the scroll view. */}
       {/* Scroll always renders all items regardless if item is on screen. */}
       {/* FlatList lazy loads items */}
